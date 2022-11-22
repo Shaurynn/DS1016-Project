@@ -1,10 +1,8 @@
 # Data analysis
-- Document here the project: DS1016-Project
-- Description: Project Description
-- Data Source:
+- DS1016-Project
+- Description: Using Deep Learning to Detect Alzheimer's Disease
+- Data Source: Alzheimer’s Disease Neuroimaging Initiative (https://adni.loni.usc.edu/)
 - Type of analysis:
-
-Please document the project the better you can.
 
 # Startup the project
 
