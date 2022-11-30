@@ -13,6 +13,7 @@ matplotlib
 antspyx
 antspynet
 SimpleITK
+SimpleITK-SimpleElastix
 dltk
 scikit-image
 nipype
