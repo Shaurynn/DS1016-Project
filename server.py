@@ -14,64 +14,24 @@ from tensorflow.keras.callbacks import EarlyStopping
 
 from prediction import preprocess, predict
 
-st.markdown("""
-# Welcome to Atulya's Project
-## "How to give my team-mates aneurysms"
-""")
+MODELS = {
+    "Inception": "models/inception_model1.h5",
+    "ResNet3D": "models/inception_model1.h5",
+}
 
-#app = FastAPI()
+st.title("Alzheimer's Disease Dectection")
 
-#@app.get('/index')
-#def ItsWorking():
-#    return "It's Working!"
+file = st.file_uploader("Choose an image")
+ref_atlas = st.file_uploader("Choose an atlas")
 
-st.cache
-def predict_image(uploaded_file,uploaded_atlas):
-    with open("./input.nii", "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
-    with open("./ref_atlas.nii", "wb") as buffer:
-        shutil.copyfileobj(ref_atlas.file, buffer)
+# displays the select widget for the styles
+model = st.selectbox("Choose the deep-learning model", [i for i in MODELS.keys()])
 
-    # preprocess("./input.nii", "./ref_atlas.nii")
-    # saved_model = model_loading()
+def predict():
+    preprocess(file, ref_atlas)
+    saved_model = model
     prediction = predict()
 
     return {'prediction':1}
 
-
-uploaded_file = st.file_uploader("Please uploade your MRI nifti file")
-
-if uploaded_file is not None:
-    # To read file as bytes:
-    bytes_data = uploaded_file.getvalue()
-    st.write(bytes_data)
-
-    # To convert to a string based IO:
-    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-    st.write(stringio)
-
-    # To read file as string:
-    string_data = stringio.read()
-    st.write(string_data)
-
-uploaded_atlas = st.file_uploader("Please upload your atlas nifti file")
-
-if uploaded_atlas is not None:
-    # To read file as bytes:
-    bytes_data = uploaded_file.getvalue()
-    st.write(bytes_data)
-
-    # To convert to a string based IO:
-    stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
-    st.write(stringio)
-
-    # To read file as string:
-    string_data = stringio.read()
-    st.write(string_data)
-
-
-pred_ = predict_image(uploaded_file, uploaded_atlas)
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, port=8080, host='0.0.0.0')
+trigger = st.button('Predict', on_click=predict)
