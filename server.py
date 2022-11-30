@@ -34,4 +34,12 @@ def predict():
 
     return {'prediction':1}
 
+if st.button("Upload"):
+    if image is not None and atlas is not None and model is not None:
+        with open(os.path.join("./",image.name),"wb") as f:
+            image_file = f.write(image.getbuffer())
+        with open(os.path.join("./", atlas.name),"wb") as a:
+            atlas_file = a.write(atlas.getbuffer())
+    st.success("Saved File")
+
 trigger = st.button('Predict', on_click=predict)
