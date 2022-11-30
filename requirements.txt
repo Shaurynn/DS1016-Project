@@ -13,7 +13,7 @@ matplotlib
 antspyx
 antspynet
 SimpleITK
-dltk.io
+dltk
 skimage
 nipy
 nipype
