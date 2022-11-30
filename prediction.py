@@ -270,9 +270,9 @@ def preprocess(image, atlas):
     atlas_img = sitk.ReadImage(atlas)
     atlas_img = resample_img(atlas_img)
 
-    res_array = sitk.GetArrayFromImage(res_image)
-    res_array = preprocessing.resize_image_with_crop_or_pad(res_array, img_size=(128, 192, 192), mode='symmetric')
-    res_array = preprocessing.whitening(res_array)
+    #res_array = sitk.GetArrayFromImage(res_image)
+    #res_array = preprocessing.resize_image_with_crop_or_pad(res_array, img_size=(128, 192, 192), mode='symmetric')
+    #res_array = preprocessing.whitening(res_array)
 
     registrated_image = registrate(atlas_img, res_image, bspline=False)
     sitk.WriteImage(registrated_image, f"./{image.split('/')[-1]}_registrated.nii")
