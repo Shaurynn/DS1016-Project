@@ -19,11 +19,11 @@ st.markdown("""
 ## "How to give my team-mates aneurysms"
 """)
 
-app = FastAPI()
+#app = FastAPI()
 
-@app.get('/index')
-def ItsWorking():
-    return "It's Working!"
+#@app.get('/index')
+#def ItsWorking():
+#    return "It's Working!"
 
 st.cache
 def predict_image(uploaded_file,uploaded_atlas):
