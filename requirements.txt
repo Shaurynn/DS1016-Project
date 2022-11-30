@@ -11,6 +11,8 @@ pandas
 scikit-learn
 tensorflow
 matplotlib
+antspyx
+antspynet
 
 # tests/linter
 black
