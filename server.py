@@ -26,7 +26,7 @@ def ItsWorking():
     return "It's Working!"
 
 st.cache
-def predict_image(file: , ref_atlas: UploadFile = File(...)):
+def predict_image(uploaded_file,uploaded_atlas):
     with open("./input.nii", "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
     with open("./ref_atlas.nii", "wb") as buffer:
