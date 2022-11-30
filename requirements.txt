@@ -14,7 +14,7 @@ antspyx
 antspynet
 SimpleITK
 dltk
-skimage
+scikit-image
 nipy
 nipype
 
