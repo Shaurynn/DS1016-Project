@@ -12,6 +12,9 @@ tensorflow
 matplotlib
 antspyx
 antspynet
+SimpleITK
+DLTK
+
 
 # tests/linter
 black
