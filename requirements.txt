@@ -17,7 +17,6 @@ dltk
 scikit-image
 nipype
 
-
 # tests/linter
 black
 coverage
