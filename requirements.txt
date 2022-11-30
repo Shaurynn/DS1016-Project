@@ -13,7 +13,9 @@ matplotlib
 antspyx
 antspynet
 SimpleITK
-DLTK
+dltk.io
+skimage
+nipype
 
 
 # tests/linter
