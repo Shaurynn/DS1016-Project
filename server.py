@@ -38,6 +38,8 @@ def predict_image(uploaded_file,uploaded_atlas):
 
     return {'prediction':1}
 
+pred_ = predict_image(uploaded_file, uploaded_atlas)
+
 uploaded_file = st.file_uploader("Please uploade your MRI nifti file")
 
 if uploaded_file is not None:
