@@ -15,6 +15,7 @@ antspynet
 SimpleITK
 dltk.io
 skimage
+nipy
 nipype
 
 
