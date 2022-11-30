@@ -30,13 +30,6 @@ import numpy as np
 # Set numpy to print only 2 decimal digits for neatness
 np.set_printoptions(precision=2, suppress=True)
 
-import h5py
-import gcsfs
-PROJECT_NAME = 'projectalzheimers'
-CREDENTIALS = 'projectalzheimers-aee5389e9476.json'
-MODEL_PATH = 'gs://bucketalzheimers/inception_model1.h5'
-BUCKET_NAME = 'bucketalzheimers'
-
 
 IMG_SHAPE = (78, 110, 86)
 IMG_2D_SHAPE = (IMG_SHAPE[1] * 4, IMG_SHAPE[2] * 4)
@@ -271,25 +264,11 @@ def read_dataset(epochs, batch_size, filename):
 
     return dataset
 
-def model_loading():
-    FS = gcsfs.GCSFileSystem(project=PROJECT_NAME,
-                         token=CREDENTIALS)
-    with FS.open(MODEL_PATH, 'rb') as model_file:
-        model_gcs = h5py.File(model_file, 'r')
-        savedModel = load_model(model_gcs)
-    print(savedModel.summary())
-    print("model loading successfully completed")
-
-    return savedModel
-
-
 def preprocess(image, atlas):
     sitk_image = sitk.ReadImage(image)
     res_image = resample_img(sitk_image)
-    print("image resampling successfully completed")
     atlas_img = sitk.ReadImage(atlas)
     atlas_img = resample_img(atlas_img)
-    print("atlas image resampling successfully completed")
 
     res_array = sitk.GetArrayFromImage(res_image)
     res_array = preprocessing.resize_image_with_crop_or_pad(res_array, img_size=(128, 192, 192), mode='symmetric')
@@ -328,7 +307,7 @@ def predict():
     print(Test)
     Test_array = list(Test.take(1).as_numpy_iterator())
     print(Test_array[0][0])
-    savedModel = load_model('./inception_model1.h5')
+    #savedModel = load_model('./inception_model1.h5')
     print(savedModel.summary())
     prediction = savedModel.predict(Test_array[0][0])
     print(prediction)
