@@ -37,9 +37,9 @@ if st.button("Upload"):
 
 def predict():
     preprocess(image_file, atlas_file)
-    saved_model = model
-    prediction = predict()
+    #saved_model = model
+    #prediction = predict()
 
-    return {'prediction':1}
+    #return {'prediction':1}
 
 trigger = st.button('Predict', on_click=predict)
