@@ -19,16 +19,16 @@ MODELS = {
     "ResNet3D": "models/inception_model1.h5",
 }
 
-st.title("Alzheimer's Disease Dectection")
+st.title("Alzheimer's Disease Detection")
 
-file = st.file_uploader("Choose an image")
-ref_atlas = st.file_uploader("Choose an atlas")
+image = st.file_uploader("Choose an image")
+atlas = st.file_uploader("Choose an atlas")
 
 # displays the select widget for the styles
 model = st.selectbox("Choose the deep-learning model", [i for i in MODELS.keys()])
 
 def predict():
-    preprocess(file, ref_atlas)
+    preprocess(image, atlas)
     saved_model = model
     prediction = predict()
 
