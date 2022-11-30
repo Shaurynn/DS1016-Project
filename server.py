@@ -33,13 +33,13 @@ if st.button("Upload"):
             image_file = f.write(image.getbuffer())
         with open(os.path.join("./", atlas.name),"wb") as a:
             atlas_file = a.write(atlas.getbuffer())
-    st.success("Saved File")
+    st.success("Files saved")
 
 def predict():
     preprocess(image_file, atlas_file)
-    #saved_model = model
-    #prediction = predict()
+    saved_model = model
+    prediction = predict()
 
-    #return {'prediction':1}
+    return {'prediction':1}
 
 trigger = st.button('Predict', on_click=predict)
