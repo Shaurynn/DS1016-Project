@@ -38,7 +38,6 @@ def predict_image(uploaded_file,uploaded_atlas):
 
     return {'prediction':1}
 
-pred_ = predict_image(uploaded_file, uploaded_atlas)
 
 uploaded_file = st.file_uploader("Please uploade your MRI nifti file")
 
@@ -69,6 +68,9 @@ if uploaded_atlas is not None:
     # To read file as string:
     string_data = stringio.read()
     st.write(string_data)
+
+
+pred_ = predict_image(uploaded_file, uploaded_atlas)
 
 
 if __name__ == "__main__":
