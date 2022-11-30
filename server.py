@@ -30,14 +30,14 @@ model = st.selectbox("Choose the deep-learning model", [i for i in MODELS.keys()
 if st.button("Upload"):
     if image is not None and atlas is not None and model is not None:
         with open(os.path.join("./",image.name),"wb") as f:
-            image_file = f.write(image.getbuffer())
+            f.write(image.getbuffer())
         with open(os.path.join("./", atlas.name),"wb") as a:
-            atlas_file = a.write(atlas.getbuffer())
+            a.write(atlas.getbuffer())
     st.success("Files saved")
 
 def predict():
-    preprocess(image_file, atlas_file)
-    saved_model = model
+    preprocess(os.path.join("./",image.name),os.path.join("./", atlas.name))
+    saved_model = os.path.join("./",model)
     prediction = predict()
 
     return {'prediction':1}
