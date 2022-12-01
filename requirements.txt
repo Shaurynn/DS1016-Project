@@ -15,6 +15,7 @@ SimpleITK-SimpleElastix
 dltk
 scikit-image
 nipype
+antspyx
 
 # tests/linter
 black
