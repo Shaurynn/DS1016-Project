@@ -304,7 +304,9 @@ def predict(x):
     savedModel = load_model('./models/inception_model1.h5')
     print(savedModel.summary())
     prediction = savedModel.predict(Test_array[0][0])
-    st.success(prediction)
+    class_list = ["has no cognitive impairment", "has mild cognitive impairment", "has Alzheimer's disease"]
+    result = class_list[argmax(prediction)]
+    st.success(f"Subject most likely {result}.")
 
     # sess = tf.compat.v1.keras.backend.get_session()
     # x_tst_tensor = tf.convert_to_tensor(Test)
