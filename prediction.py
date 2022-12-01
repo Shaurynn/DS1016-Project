@@ -289,15 +289,11 @@ def preprocess(image, atlas):
     print("Image 2D conversion successfully completed")
     return
 
-def predict():
+def predict(x):
     image_test_array = []
     label_test_array = []
-
-
-    for filename in os.listdir('./'):
-        if filename.endswith('.npy'):
-            image_test_array.append(np.load(f"./{filename}"))
-            label_test_array.append(0)#if 'CN' in folder else 1 if 'MCI' in folder else 2)
+    image_test_array.append(np.load(x))
+    label_test_array.append(0)#if 'CN' in folder else 1 if 'MCI' in folder else 2)
 
     image_test_array = np.array(image_test_array)
     write_tfrecords(image_test_array, label_test_array, "./test.tfrecords")
