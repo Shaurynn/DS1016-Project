@@ -8,6 +8,12 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
+tensorflow
+matplotlib
+SimpleITK
+SimpleITK-SimpleElastix
+dltk
+scikit-image
 
 # tests/linter
 black
@@ -17,13 +23,14 @@ pytest
 yapf
 
 # API
-gcsfs
-google-cloud-storage
 mlflow
 s3fs
+fastapi
+uvicorn
 
 # utilities
 six>=1.14
 joblib
 memoized-property
 termcolor
+python-multipart
