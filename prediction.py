@@ -301,7 +301,7 @@ def predict(x):
     print(Test)
     Test_array = list(Test.take(1).as_numpy_iterator())
     print(Test_array[0][0])
-    #savedModel = load_model('./inception_model1.h5')
+    savedModel = load_model('./models/inception_model1.h5')
     print(savedModel.summary())
     prediction = savedModel.predict(Test_array[0][0])
     print(prediction)
