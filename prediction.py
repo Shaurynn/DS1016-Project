@@ -81,7 +81,7 @@ def registrate(sitk_fixed, sitk_moving, bspline=False):
                        the images and increases execution times
     '''
 
-    elastixImageFilter = sitk.SimpleElastix()
+    elastixImageFilter = sitk.ElastixImageFilter()
     elastixImageFilter.SetFixedImage(sitk_fixed)
     elastixImageFilter.SetMovingImage(sitk_moving)
 
