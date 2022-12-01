@@ -20,9 +20,10 @@ from collections import Counter
 from tensorflow.keras.callbacks import EarlyStopping
 
 from tensorflow.keras.models import load_model
-#from keras.models import load_model
 import tensorflow as tf
 from tensorflow.python.lib.io import file_io
+from nipype.interfaces.ants import RegistrationSynQuick
+from nipype.interfaces.ants.segmentation import BrainExtraction
 
 import numpy as np
 # Set numpy to print only 2 decimal digits for neatness
@@ -34,7 +35,6 @@ IMG_2D_SHAPE = (IMG_SHAPE[1] * 4, IMG_SHAPE[2] * 4)
 #SHUFFLE_BUFFER = 5 #Subject to change
 N_CLASSES = 3
 
-from tensorflow.keras.models import load_model
 
 def resample_img(itk_image, out_spacing=[2.0, 2.0, 2.0]):
     ''' This function resamples images to 2-mm isotropic voxels.
@@ -258,8 +258,6 @@ def read_dataset(epochs, batch_size, filename):
     dataset = dataset.repeat(epochs)                            ##2
     dataset = dataset.shuffle(buffer_size=10 * batch_size)      ##1
     dataset = dataset.batch(batch_size, drop_remainder=True)    ##3
-
-
     return dataset
 
 def preprocess(image, atlas):
@@ -284,12 +282,11 @@ def preprocess(image, atlas):
     gz_extract(f"./{image.split('/')[-1]}_stripped.nii.gz")
 
     image_2d = load_image_2D(f"./{image.split('/')[-1]}_stripped.nii")
- #   print(image_2d.shape)
     np.save(f"./{image.split('/')[-1]}_2d", image_2d)
     print("Image 2D conversion successfully completed")
     return
 
-def predict(x):
+def predict(x, chosen_model):
     image_test_array = []
     label_test_array = []
     image_test_array.append(np.load(x))
@@ -301,31 +298,34 @@ def predict(x):
     print(Test)
     Test_array = list(Test.take(1).as_numpy_iterator())
     print(Test_array[0][0])
-    savedModel = load_model('./models/inception_model1.h5')
-    print(savedModel.summary())
-    prediction = savedModel.predict(Test_array[0][0])
+    print(chosen_model.summary())
+    prediction = chosen_model.predict(Test_array[0][0])
     class_list = ["has no cognitive impairment", "has mild cognitive impairment", "has Alzheimer's disease"]
     result = class_list[np.argmax(prediction)]
-    st.header(f"Subject most likely **_{result}_**.")
+    st.success(f"Subject most likely **_{result}_**.")
+    return
 
-    # sess = tf.compat.v1.keras.backend.get_session()
-    # x_tst_tensor = tf.convert_to_tensor(Test)
-    # yhat_from_call_method = sess.run(model(x_tst_tensor))
-    # yhat_from_call_method = np.argmax(yhat_from_call_method, axis = -1)
-    # print(yhat_from_call_method)
+def preprocess3d(image, atlas):
+    reg = RegistrationSynQuick()
+    reg.inputs.fixed_image = os.path.join("./",atlas.name)
+    reg.inputs.moving_image = os.path.join("./",image.name)
+    reg.inputs.num_threads = 2
+    reg.cmdline
+    os.path.join(f"antsRegistrationSyNQuick.sh -d 3 -f ./data/tpl-MNI305_T1w.nii.gz -r 32 -m ./{image} -n 2 -o ./ -p d")
+    reg.run()
+    print("Brain registration complete")
+    brainextraction = BrainExtraction()
+    brainextraction.inputs.dimension = 3
+    brainextraction.inputs.anatomical_image = os.path.join(f"./{image}_Warped.nii.gz")
+    brainextraction.inputs.brain_template = os.path.join(f"./data/tpl-MNI305_desc-head_mask.nii.gz")
+    brainextraction.inputs.brain_probability_mask = os.path.join(f"./data/tpl-MNI305_desc-brain_mask.nii.gz")
+    brainextraction.cmdline
+    os.path.join(f"antsBrainExtraction.sh -a ./{image}_Warped.nii.gz -m ./data/tpl-MNI305_desc-brain_mask.nii.gz -e ./data/tpl-MNI305_desc-head_mask.nii.gz -d 3 -s nii.gz -o ./")
+    brainextraction.run()
+    print("Brain extraction complete")
 
-    # for sample in Test.take(1):
-    #     print(sample[0].shape)
-    # with tf.compat.v1.Session() as sess:
-    #       x_out = np.asarray(sess.run(Test))
-    # pred = model.predict(x_out, verbose=1)
-
-
-
-    # for raw_record in Test.take(1):
-    #     example = tf.train.Example()
-    #     example.ParseFromString(raw_record.numpy())
-    #     print(example)#np.array(list(Test.unbatch().take(-1).as_numpy_iterator()))
-    #print(Test_array)
- #   Test_x = np.stack(Test_array[0])
-    return #prediction
+    gz_extract(f"./{image.split('_')[0]}_.nii.gz")
+    image_2d = load_image_2D(f"./{image.split('_')[0]}_.nii")
+    np.save(f"./{image.split('_')[0]}_2d", image_2d)
+    print("Image 2D conversion complete")
+    return
