@@ -37,10 +37,8 @@ if st.button("Upload"):
 
 def detect_AD():
     preprocess(os.path.join("./",image.name),os.path.join("./", atlas.name))
-    st.success("Preprocessing complete")
-    saved_model = os.path.join("./",model)
-    predict(f"./{image.name}_2d.npy")
-    st.success("Prediction complete")
-    return {'prediction':1}
+    #saved_model = os.path.join("./",model)
+    prediction = predict(f"./{image.name}_2d.npy")
+    st.success(prediction)
 
 trigger = st.button('Predict', on_click=detect_AD)
