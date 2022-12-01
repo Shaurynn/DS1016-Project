@@ -24,8 +24,6 @@ from tensorflow.keras.models import load_model
 import tensorflow as tf
 from tensorflow.python.lib.io import file_io
 
-from google.cloud import storage
-
 import numpy as np
 # Set numpy to print only 2 decimal digits for neatness
 np.set_printoptions(precision=2, suppress=True)
