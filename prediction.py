@@ -1,5 +1,5 @@
 import SimpleITK as sitk
-
+import Streamlit as st
 
 from dltk.io import preprocessing
 from skimage import filters
@@ -304,7 +304,7 @@ def predict(x):
     savedModel = load_model('./models/inception_model1.h5')
     print(savedModel.summary())
     prediction = savedModel.predict(Test_array[0][0])
-    print(prediction)
+    st.success(prediction)
 
     # sess = tf.compat.v1.keras.backend.get_session()
     # x_tst_tensor = tf.convert_to_tensor(Test)
