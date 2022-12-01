@@ -39,6 +39,5 @@ def detect_AD():
     preprocess(os.path.join("./",image.name),os.path.join("./", atlas.name))
     #saved_model = os.path.join("./",model)
     prediction = predict(f"./{image.name}_2d.npy")
-    st.text(prediction)
 
 trigger = st.button('Predict', on_click=detect_AD)
