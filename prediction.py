@@ -287,7 +287,7 @@ def preprocess(image, atlas):
  #   print(image_2d.shape)
     np.save(f"./{image.split('/')[-1]}_2d", image_2d)
     print("Image 2D conversion successfully completed")
-
+    return
 
 def predict():
     image_test_array = []
