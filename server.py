@@ -35,10 +35,11 @@ if st.button("Upload"):
             a.write(atlas.getbuffer())
     st.success("Files saved")
 
-def predict():
+def detect_AD():
     preprocess(os.path.join("./",image.name),os.path.join("./", atlas.name))
-    saved_model = os.path.join("./",model)
-    prediction = predict()
+    st.success("Preprocessing complete")
+    #saved_model = os.path.join("./",model)
+    prediction = predict(os.path.join("./",image.name,"_2d.npy"))
 
     return {'prediction':1}
 
