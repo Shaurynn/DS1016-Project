@@ -81,7 +81,7 @@ def registrate(sitk_fixed, sitk_moving, bspline=False):
                        the images and increases execution times
     '''
 
-    elastixImageFilter = sitk.ElastixImageFilter()#sitk.ElastixImageFilter()   SimpleElastix()
+    elastixImageFilter = sitk.ElastixImageFilter()
     elastixImageFilter.SetFixedImage(sitk_fixed)
     elastixImageFilter.SetMovingImage(sitk_moving)
 
@@ -306,7 +306,7 @@ def predict(x):
     prediction = savedModel.predict(Test_array[0][0])
     class_list = ["has no cognitive impairment", "has mild cognitive impairment", "has Alzheimer's disease"]
     result = class_list[np.argmax(prediction)]
-    st.markdown(f"Subject most likely **_{result}_**.")
+    st.header(f"Subject most likely **_{result}_**.")
 
     # sess = tf.compat.v1.keras.backend.get_session()
     # x_tst_tensor = tf.convert_to_tensor(Test)
