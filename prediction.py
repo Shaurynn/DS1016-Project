@@ -1,5 +1,5 @@
 import SimpleITK as sitk
-import Streamlit as st
+import streamlit as st
 
 from dltk.io import preprocessing
 from skimage import filters
