@@ -27,13 +27,13 @@ atlas = st.file_uploader("Choose an atlas")
 # displays the select widget for the styles
 model = st.selectbox("Choose the deep-learning model", [i for i in MODELS.keys()])
 
-if st.button("Upload"):
-    if image is not None and atlas is not None and model is not None:
-        with open(os.path.join("./",image.name),"wb") as f:
-            f.write(image.getbuffer())
-        with open(os.path.join("./", atlas.name),"wb") as a:
-            a.write(atlas.getbuffer())
-    st.success("Files saved")
+#if st.button("Upload"):
+#    if image is not None and atlas is not None and model is not None:
+#        with open(os.path.join("./",image.name),"wb") as f:
+#            f.write(image.getbuffer())
+#        with open(os.path.join("./", atlas.name),"wb") as a:
+#            a.write(atlas.getbuffer())
+#    st.success("Files saved")
 
 def predict():
     preprocess(os.path.join("./",image.name),os.path.join("./", atlas.name))
