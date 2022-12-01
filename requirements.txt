@@ -10,13 +10,10 @@ pandas
 scikit-learn
 tensorflow
 matplotlib
-antspyx
-antspynet
 SimpleITK
 SimpleITK-SimpleElastix
 dltk
 scikit-image
-nipype
 
 # tests/linter
 black
